@@ -1,31 +1,52 @@
 package com.hjn.chapter4_stopwatch;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
 import android.os.Bundle;
-import java.util.Locale;
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 public class StopwatchActivity extends AppCompatActivity {
     // Number of seconds displayed on the Stopwatch
     private int seconds = 0;
     // Is the stopwatch running?
     private boolean running;
+    // to make sure that whether the stopwatch is running or not
+    private boolean wasRunning;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 为什么不用“wasRunning = running”呢？
+        // 因为running有可能是null
+        // （第一次调用onCreate，onStart方法，running的值为空）
+        if(wasRunning) {
+            running = true;
+        }
+    }
 
     @Override
     protected void onStop(){
-        // 
+        // 覆盖一个活动生命周期方法时，需要调用相应的Activity超类方法。
+        // 如果没有做到，则会出现异常
         super.onStop();
+        wasRunning = running;
+        running = false;
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        // 将seconds和running变量的值保存到savedInstanceState
+
+        // 为什么此处的非生命周期方法也需要调用相应的ACtivity超类方法？否则报错
+        super.onSaveInstanceState(savedInstanceState);
+        // 将seconds，running和wasRunning变量的值保存到savedInstanceState
         savedInstanceState.putInt("seconds", seconds);
         savedInstanceState.putBoolean("running", running);
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +64,8 @@ public class StopwatchActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
             running = savedInstanceState.getBoolean("running");
+            // 如果活动是重新创建的，则恢复wasRunning的状态
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
         }
 
         // 更新秒表的方法
