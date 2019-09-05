@@ -17,9 +17,11 @@ public class StopwatchActivity extends AppCompatActivity {
     // to make sure that whether the stopwatch is running or not
     private boolean wasRunning;
 
+    // 如果希望活动停止或启动时有同样的行为（不用在多个方法中重复已有的代码）
+    // 活动恢复或者启动的时候都会调用onResume()方法，所以可以把onStart()方法的代码移到onResume()方法
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         // 为什么不用“wasRunning = running”呢？
         // 因为running有可能是null
         // （第一次调用onCreate，onStart方法，running的值为空）
@@ -28,11 +30,12 @@ public class StopwatchActivity extends AppCompatActivity {
         }
     }
 
+    // 活动暂停或者停止时与启动或者恢复的情况相同
     @Override
-    protected void onStop(){
+    protected void onPause(){
         // 覆盖一个活动生命周期方法时，需要调用相应的Activity超类方法。
         // 如果没有做到，则会出现异常
-        super.onStop();
+        super.onPause();
         wasRunning = running;
         running = false;
     }
