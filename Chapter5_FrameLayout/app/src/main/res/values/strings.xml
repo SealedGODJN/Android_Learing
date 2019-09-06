@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Chapter5_FrameLayout</string>
+    <string name="tea">How do you like your tea served?</string>
+    <string name="on">Hot</string>
+    <string name="off">Cold</string>
+    <string name="milk">Milk</string>
+    <string name="sugar">Sugar</string>
+    <string name="lemon">Lemon</string>
 </resources>
