@@ -77,3 +77,9 @@ Chapter5_view_and_viewGroup/app/build/intermediates/metadata_feature_manifest/de
 Chapter5_view_and_viewGroup/app/build/outputs/logs/manifest-merger-debug-report.txt
 Chapter5_view_and_viewGroup/Chapter5_view_and_viewGroup.iml
 Chapter5_view_and_viewGroup/local.properties
+*.gradle
+*.pro
+*.jar
+*.bat
+*.properties
+*.png
