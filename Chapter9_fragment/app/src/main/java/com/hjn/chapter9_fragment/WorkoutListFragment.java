@@ -1,6 +1,7 @@
 package com.hjn.chapter9_fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,13 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WorkoutListFragment extends ListFragment {
 
+    static interface Listener{
+        void itemClicked(long id);
+    }
+
+    private Listener listener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // 设置listener的值
+        this.listener=(Listener)context;
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View itemView, int position, long id) {
+        if (listener != null) {
+            // 单击ListView中的一项时，告诉监听器
+            listener.itemClicked(id);
+        }
+    }
 
     public WorkoutListFragment() {
         // Required empty public constructor
