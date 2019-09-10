@@ -18,6 +18,22 @@ public class WorkoutDetailFragment extends Fragment {
 
     private long workoutId;
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // 保存workoutId
+        savedInstanceState.putLong("workoutId", workoutId);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState != null) {
+            // 设置workoutId的值
+            workoutId = savedInstanceState.getLong("workoutId");
+        }
+    }
+
     // 活动使用该方法设置训练项目ID的值
     public void setWorkoutId(long id) {
         this.workoutId = id;
