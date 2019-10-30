@@ -4,6 +4,7 @@ package com.hjn.chapter9_fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +22,27 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        // 保存workoutId
-        savedInstanceState.putLong("workoutId", workoutId);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            // 设置workoutId的值
-            workoutId = savedInstanceState.getLong("workoutId");
+        // 只有当片段是第一次创建时,新增片段
+        // 片段被撤销时,不新增片段
+        if(savedInstanceState == null) {
+            StopwatchFragment stopwatch = new StopwatchFragment();
+            // 开始片段事务，使用支持库的片段
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            // 增加stopwatch,并把这个事务增加到后退堆栈
+            ft.add(R.id.stopwatch_container, stopwatch);
+            // 将这个事务增加到后退堆栈
+            ft.addToBackStack(null);
+            // TRANSIT_FRAGMENT_FADE 设置片段事务淡入淡出
+            ft.setTransition((FragmentTransaction.TRANSIT_FRAGMENT_FADE));
+            ft.commit();
+        } else {
+            // 保存workoutId
+            workoutId = savedInstanceState.getLong("workoutId", workoutId);
         }
     }
 
