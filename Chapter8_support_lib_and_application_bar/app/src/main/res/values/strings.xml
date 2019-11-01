@@ -25,4 +25,19 @@
         <item>Spaghetti Bolognese</item>
         <item>Lasagne</item>
     </string-array>
+
+    <!-- 为标签页中的标签命名 -->
+    <string name="home_tab">Home</string>
+    <string name="pizza_tab">Pizzas</string>
+    <string name="pasta_tab">Pasta</string>
+    <string name="store_tab">Stores</string>
+
+    <!-- 为TopFragment增加可滚动的内容 -->
+    <string name="company_name">Bits and Pizzas</string>
+    <string name="restaurant_image">Restaurant Image</string>
+    <string name="home_text">
+        Since we opened our doors in 2017, Bits and Pizzas has built its reputation as one of America
+        best Italian-Digital restaurants. Some people believe eating out is about being with your friends
+        and family. We believe that good food is best enjoyed while staring at your phone.
+    </string>
 </resources>
